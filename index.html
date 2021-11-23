@@ -17,7 +17,7 @@
     <p class="subhead">Калькулятор депозитов позволяет рассчитать выши доходы после внесения суммы на счет в банке по определенному тарифу.</p>
     <br>
     <div class="form-container">
-      <form action="" method="post" class="calculator-input" id="calculator-input" name="calculator-input">
+      <form action="calc.php" method="post" class="calculator-input" id="calculator-input" name="calculator-input">
         <div class="row">
           <div class="input-box date-box">
             <label for="fopendate">Дата открытия</label>
@@ -51,7 +51,7 @@
             <label class="checkbox-label" for="freplenishment">Ежемесячное пополнение вклада</label>
           </div>
           <div class="input-box styled-input repl-block">
-          <input type="text" id="freplamount" class="text-input" name="freplamount" required>
+          <input type="text" id="freplamount" class="text-input" name="freplamount">
             <label for="freplamount">Сумма пополнения вклада</label>
           </div>
         </div>
@@ -60,10 +60,10 @@
       </form>
     </div>
 
-    <div class="result">
+    <div class="result" id="result">
       <hr>
       <p>Сумма к выплате</p>
-      <h1 class="result-amount">250 000 Р</h1>
+      <h1 class="result-amount" id="result-amount"> </h1>
     </div>
   </div>
 </body>

@@ -86,26 +86,36 @@ $(document).ready(function() {
     if (!$("form[name='calculator-input']").valid()) {
       return;
     }
+
     event.preventDefault();
     var obj = {
-      'startDate': $('#fopendate').val(), // дата открытия вклада
-      'sum': $('#famount').val(), // сумма вклада
-      'term': $('#fterm').val(), // срок вклада в месяцах
-      'percent': $('#finterest').val(), // процентная ставка, % годовых
-      'sumAdd': $('#freplamount').val(), // сумма ежемесячного пополнения вклада
+      'fopendate': $('#fopendate').val(), // дата открытия вклада
+      'famount': $('#famount').val(), // сумма вклада
+      'ftermnum': $('#ftermnum').val(), // срок вклада в месяцах
+      'finterest': $('#finterest').val(), // процентная ставка, % годовых
+      'freplamount': $('#freplamount').val(), // сумма ежемесячного пополнения вклада
     };
-    console.log(obj);
-    alert(obj);
+    if ($("#fterm option:selected").val() === "year") {
+        obj['term'] = $('#ftermnum').val() * 12
+      }
+    if (obj['sumAdd'] == '' ){
+      obj['sumAdd']="0";
+    }
+
 
     $.ajax({
       type: "POST",
-      url: './calc.php',
+      url: 'calc.php',
       dataType: 'json',
       data: obj,
 
       success: function(result) {
-        alert(result);
-      }
+        var res =(JSON.parse(result));
+        $('#result-amount').html(res+(" ₽"));
+      },
+      error: function(ajaxContext) {
+        alert("fail");
+    }
     });
   });
 });
