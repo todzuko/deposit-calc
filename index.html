@@ -58,12 +58,13 @@
         <button type="submit" id ="submitbtn" class="button">Рассчитать</button>
 
       </form>
+      <p class="error" id="error"></p>
     </div>
 
     <div class="result" id="result">
       <hr>
       <p>Сумма к выплате</p>
-      <h1 class="result-amount" id="result-amount"> </h1>
+      <h1 class="result-amount" id="result-amount"></h1>
     </div>
   </div>
 </body>
@@ -71,17 +72,3 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
 <script src="./script.js"></script>
 </html>
-
-<!--
-sumN – сумма на счете на N месяц (руб)
-sumN-1 – сумма на счете на конец прошлого месяца
-percent – процентная ставка банка
-
-    Постарайся реализовать валидацию на стороне фронта используя jQuery Validation Plugin или другой плагин
-    Не забывай про валидацию на Backend
-    Правила валидации
-        Сумма вклада - число от 1000 до 3000000
-        Срок вклада - число от 1 до 60 месяцев (или 1 до 5 лет)
-        Сумма пополнения вклада - число от 0 до 3000000
-        Процентная ставка, % годовых - целое число от 3 до 100
--->

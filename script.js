@@ -8,6 +8,7 @@ $(document).ready(function() {
     }
   });
 
+  $('#result').hide();
 
   $("form[name='calculator-input']").validate({
     rules: {
@@ -77,10 +78,8 @@ $(document).ready(function() {
         min: "Не менее 0 рублей",
         max: "Не более 3000000 рублей"
       }
-    }
-
+    },
   });
-
 
   $("#submitbtn").on('click', function(event) {
     if (!$("form[name='calculator-input']").valid()) {
@@ -88,20 +87,16 @@ $(document).ready(function() {
     }
 
     event.preventDefault();
-    var obj = {
-      'fopendate': $('#fopendate').val(), // дата открытия вклада
-      'famount': $('#famount').val(), // сумма вклада
-      'ftermnum': $('#ftermnum').val(), // срок вклада в месяцах
-      'finterest': $('#finterest').val(), // процентная ставка, % годовых
-      'freplamount': $('#freplamount').val(), // сумма ежемесячного пополнения вклада
+    //passing raw data to server side to make all needed changes on server in case js is disables or changed
+    let obj = {
+      'fopendate': $('#fopendate').val(),
+      'famount': $('#famount').val(),
+      'ftermnum': $('#ftermnum').val(),
+      'fterm': $('#fterm').val(),
+      'finterest': $('#finterest').val(),
+      'freplenishment': $("#freplenishment").is(":checked"),
+      'freplamount': $('#freplamount').val(),
     };
-    if ($("#fterm option:selected").val() === "year") {
-        obj['term'] = $('#ftermnum').val() * 12
-      }
-    if (obj['sumAdd'] == '' ){
-      obj['sumAdd']="0";
-    }
-
 
     $.ajax({
       type: "POST",
@@ -110,12 +105,16 @@ $(document).ready(function() {
       data: obj,
 
       success: function(result) {
-        var res =(JSON.parse(result));
-        $('#result-amount').html(res+(" ₽"));
+        const res = (JSON.parse(result));
+        $('#error').hide();
+        $('#result').show();
+        $('#result-amount').html(`${res} ₽`);
       },
       error: function(ajaxContext) {
-        alert("fail");
-    }
+        $('#error').show();
+        $('#result').hide();
+        $('#error').html(`${ajaxContext['responseText']}`);
+      }
     });
   });
 });
